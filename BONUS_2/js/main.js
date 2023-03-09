@@ -28,6 +28,9 @@ const imgArray = [
 
 const containerImg = document.querySelector('.img-container');
 const containerImgThumble = document.querySelector('.img-container-thumble');
+const fermaCaroselloDom = document.getElementById('fermaCarosello');
+const avviaCaroselloDom = document.getElementById('avviaCarosello');
+
 
 let containerImgContent = "";
 let containerImgContentThumble = "";
@@ -54,30 +57,38 @@ for (let i = 0; i < imgArray.length; i++) {
     containerImgThumble.append(imgWrapperThumble);
 
 
-    // imgWrapperThumble.addEventListener('click',
-    //     function () {
-    //         wrapperImgThumble[activeImage].classList.remove('brightness');
-    //         this.classList.toggle('brightness');
-    //         wrapperImg[activeImage].classList.remove('d-block');
-    //         activeImage = i;
-    //         wrapperImg[activeImage].classList.add('d-block');
-    //     }
-
-    // );
+    imgWrapperThumble.addEventListener('click',
+        function () {
+            wrapperImgThumble[activeImage].classList.remove('brightness');
+            this.classList.toggle('brightness');
+            wrapperImg[activeImage].classList.remove('d-block');
+            activeImage = i;
+            wrapperImg[activeImage].classList.add('d-block');
+        }
+    );
 }
 
 containerImg.innerHTML = containerImgContent;
 
- const carosello = setTimeout(function () {
-     setInterval(function () {
-         wrapperImg[activeImage].classList.remove('d-block');
-         activeImage = (activeImage + 1) % imgArray.length;
-         wrapperImg[activeImage].classList.add('d-block');
-     }, 1000);
- }, 3000);
+setTimeout(carosello, 3000);
 
+let caroselloInfinito = setInterval(carosello, 2000);
 
+function carosello() {
+    wrapperImg[activeImage].classList.remove('d-block');
+    wrapperImgThumble[activeImage].classList.remove('brightness');
+    activeImage = (activeImage + 1) % imgArray.length;
+    wrapperImg[activeImage].classList.add('d-block');
+    wrapperImgThumble[activeImage].classList.add('brightness');
+}
 
+fermaCaroselloDom.addEventListener('click', function () {
+    clearInterval(caroselloInfinito);
+});
+
+avviaCaroselloDom.addEventListener('click', function () {
+    setInterval(carosello, 2000);
+});
 
 const wrapperImg = document.getElementsByClassName('wrapper-img');
 const wrapperImgThumble = document.getElementsByClassName('wrapper-img-thumble');
@@ -89,7 +100,7 @@ wrapperImgThumble[activeImage].classList.add('brightness');
 
 const nextDom = document.querySelector('#next');
 const prevDom = document.querySelector('#prev');
-/*
+
 nextDom.addEventListener('click',
     function () {
 
@@ -125,4 +136,3 @@ prevDom.addEventListener('click',
 
     }
 );
-*/
