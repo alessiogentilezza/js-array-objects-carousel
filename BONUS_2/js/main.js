@@ -54,20 +54,30 @@ for (let i = 0; i < imgArray.length; i++) {
     containerImgThumble.append(imgWrapperThumble);
 
 
-    imgWrapperThumble.addEventListener('click',
-        function () {
+    // imgWrapperThumble.addEventListener('click',
+    //     function () {
+    //         wrapperImgThumble[activeImage].classList.remove('brightness');
+    //         this.classList.toggle('brightness');
+    //         wrapperImg[activeImage].classList.remove('d-block');
+    //         activeImage = i;
+    //         wrapperImg[activeImage].classList.add('d-block');
+    //     }
 
-            wrapperImgThumble[activeImage].classList.remove('brightness');
-            this.classList.toggle('brightness');
-            wrapperImg[activeImage].classList.remove('d-block');
-            activeImage = i;
-            wrapperImg[activeImage].classList.add('d-block');
-        }
-
-    );
+    // );
 }
 
 containerImg.innerHTML = containerImgContent;
+
+ const carosello = setTimeout(function () {
+     setInterval(function () {
+         wrapperImg[activeImage].classList.remove('d-block');
+         activeImage = (activeImage + 1) % imgArray.length;
+         wrapperImg[activeImage].classList.add('d-block');
+     }, 1000);
+ }, 3000);
+
+
+
 
 const wrapperImg = document.getElementsByClassName('wrapper-img');
 const wrapperImgThumble = document.getElementsByClassName('wrapper-img-thumble');
@@ -79,7 +89,7 @@ wrapperImgThumble[activeImage].classList.add('brightness');
 
 const nextDom = document.querySelector('#next');
 const prevDom = document.querySelector('#prev');
-
+/*
 nextDom.addEventListener('click',
     function () {
 
@@ -115,3 +125,4 @@ prevDom.addEventListener('click',
 
     }
 );
+*/
