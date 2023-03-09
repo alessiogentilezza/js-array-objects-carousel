@@ -57,18 +57,11 @@ for (let i = 0; i < imgArray.length; i++) {
     imgWrapperThumble.addEventListener('click',
         function () {
 
+            wrapperImgThumble[activeImage].classList.remove('brightness');
             this.classList.toggle('brightness');
-            /*
-                        wrapperImgThumble[activeImage].classList.remove('brightness');
-                
-                        if (activeImage == wrapperImgThumble.length - 1) {
-                            activeImage = 0;
-                        } else {
-                            activeImage = activeImage + 1;
-                        }
-                
-                        wrapperImgThumble[activeImage].classList.add('brightness');
-                */
+            wrapperImg[activeImage].classList.remove('d-block');
+            activeImage = i;
+            wrapperImg[activeImage].classList.add('d-block');
         }
 
     );
