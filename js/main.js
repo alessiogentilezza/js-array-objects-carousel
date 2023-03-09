@@ -36,10 +36,14 @@ for (let i = 0; i < imgArray.length; i++) {
     let key = imgArray[i];
 
     const imgWrapper = `<div class="wrapper-img">
-        <img src="${key.image}">
-        <p class="title">${key.title}</p>
-        <p class="text">${key.text}</p>
-                            </div>`;
+
+                        <img src="${key.image}">
+                        <div class="content">
+                        <h2 class="content-title">${key.title}</h2>
+                        <p class="content-text">${key.text}</p>
+                        </div>
+        
+                         </div>`;
     const imgWrapperThumble = `<div class="wrapper-img-thumble">
     <img src="${key.image}">
                             </div>`;

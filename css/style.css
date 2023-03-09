@@ -35,15 +35,35 @@ body {
 }
 
 .wrapper-img {
+    position: relative;
     height: 100%;
     display: none;
 }
+
+.wrapper-img .content {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: white;
+    padding: 0 10px;
+    text-align: right;
+}
+
+.wrapper-img .content .content-title {
+    padding: 10px 0;
+}
+
+.wrapper-img .content .content-text {
+    padding-left: 10%;
+}
+
 .wrapper-img-thumble {
     height: 100%;
     /* display: none; */
     filter: brightness(0.3);
 
 }
+
 .wrapper-img-thumble.brightness {
     filter: brightness(1);
     border: solid 5px rgba(245, 239, 239, 0.5);
@@ -77,11 +97,11 @@ button {
 .btn1 {
     position: absolute;
     top: 10px;
-    left: 50%;
+    left: 10px;
 }
 
 .btn2 {
     position: absolute;
     bottom: 10px;
-    left: 50%;
+    left: 10px;
 }
