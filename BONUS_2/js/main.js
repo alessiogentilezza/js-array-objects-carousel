@@ -28,14 +28,14 @@ const imgArray = [
 
 const containerImg = document.querySelector('.img-container');
 const containerImgThumble = document.querySelector('.img-container-thumble');
+
 const fermaCaroselloDom = document.getElementById('fermaCarosello');
-const avviaCaroselloDom = document.getElementById('avviaCarosello');
+const reverseDom = document.getElementById('reverse');
 
 
 let containerImgContent = "";
-let containerImgContentThumble = "";
 
-
+//si poteva usare il forEach con elemeno e indice//
 
 for (let i = 0; i < imgArray.length; i++) {
     let key = imgArray[i];
@@ -56,42 +56,27 @@ for (let i = 0; i < imgArray.length; i++) {
     imgWrapperThumble.innerHTML = `<img src="${key.image}">`;
     containerImgThumble.append(imgWrapperThumble);
 
-
     imgWrapperThumble.addEventListener('click',
         function () {
-            wrapperImgThumble[activeImage].classList.remove('brightness');
-            this.classList.toggle('brightness');
+
             wrapperImg[activeImage].classList.remove('d-block');
+            wrapperImgThumble[activeImage].classList.remove('brightness');
+
             activeImage = i;
+
             wrapperImg[activeImage].classList.add('d-block');
+            wrapperImgThumble[activeImage].classList.add('brightness');
+
         }
     );
 }
 
 containerImg.innerHTML = containerImgContent;
 
-setTimeout(carosello, 3000);
-
-let caroselloInfinito = setInterval(carosello, 2000);
-
-function carosello() {
-    wrapperImg[activeImage].classList.remove('d-block');
-    wrapperImgThumble[activeImage].classList.remove('brightness');
-    activeImage = (activeImage + 1) % imgArray.length;
-    wrapperImg[activeImage].classList.add('d-block');
-    wrapperImgThumble[activeImage].classList.add('brightness');
-}
-
-fermaCaroselloDom.addEventListener('click', function () {
-    clearInterval(caroselloInfinito);
-});
-
-avviaCaroselloDom.addEventListener('click', function () {
-    setInterval(carosello, 2000);
-});
-
 const wrapperImg = document.getElementsByClassName('wrapper-img');
 const wrapperImgThumble = document.getElementsByClassName('wrapper-img-thumble');
+
+console.log(wrapperImg)
 
 let activeImage = 0;
 
@@ -101,38 +86,70 @@ wrapperImgThumble[activeImage].classList.add('brightness');
 const nextDom = document.querySelector('#next');
 const prevDom = document.querySelector('#prev');
 
-nextDom.addEventListener('click',
-    function () {
+nextDom.addEventListener('click', avanti);
 
-        wrapperImg[activeImage].classList.remove('d-block');
-        wrapperImgThumble[activeImage].classList.remove('brightness');
+prevDom.addEventListener('click', indietro);
 
-        if (activeImage == wrapperImg.length - 1) {
-            activeImage = 0;
-        } else {
-            activeImage = activeImage + 1;
-        }
+function indietro() {
+    wrapperImg[activeImage].classList.remove('d-block');
+    wrapperImgThumble[activeImage].classList.remove('brightness');
 
-        wrapperImg[activeImage].classList.add('d-block');
-        wrapperImgThumble[activeImage].classList.add('brightness');
+
+    if (activeImage == 0) {
+        activeImage = wrapperImg.length - 1;
+    } else {
+        activeImage = activeImage - 1;
     }
-);
 
-prevDom.addEventListener('click',
-    function () {
+    wrapperImg[activeImage].classList.add('d-block');
+    wrapperImgThumble[activeImage].classList.add('brightness');
 
-        wrapperImg[activeImage].classList.remove('d-block');
-        wrapperImgThumble[activeImage].classList.remove('brightness');
+}
+function avanti() {
+    wrapperImg[activeImage].classList.remove('d-block');
+    wrapperImgThumble[activeImage].classList.remove('brightness');
 
-
-        if (activeImage == 0) {
-            activeImage = wrapperImg.length - 1;
-        } else {
-            activeImage = activeImage - 1;
-        }
-
-        wrapperImg[activeImage].classList.add('d-block');
-        wrapperImgThumble[activeImage].classList.add('brightness');
-
+    if (activeImage == wrapperImg.length - 1) {
+        activeImage = 0;
+    } else {
+        activeImage = activeImage + 1;
     }
-);
+
+    wrapperImg[activeImage].classList.add('d-block');
+    wrapperImgThumble[activeImage].classList.add('brightness');
+
+}
+
+// carosello //
+
+let direction = "next";
+let clock = setInterval(infinito, 2000);
+
+function infinito() {
+    if (direction == 'next') {
+        avanti();
+    } else {
+        indietro();
+    }
+}
+
+fermaCaroselloDom.addEventListener('click', function () {     //al click start&stop
+
+    if (clock == null) {
+        clock = setInterval(infinito, 2000);
+    } else {
+        clearInterval(clock);
+        clock = null;
+    }
+});
+
+reverseDom.addEventListener('click', function () {      //al click inverti il giro
+
+    if (direction == "next") {
+        direction = "prev";
+    } else {
+        direction = "next"
+    }
+});
+
+// carosello //
